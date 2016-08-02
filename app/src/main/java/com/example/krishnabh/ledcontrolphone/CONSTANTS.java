@@ -9,8 +9,9 @@ public class CONSTANTS {
     public static final String EP_GET = "getstate/";
     public static final String EP_OFF = "turnoff/";
     public static final String EP_ON = "turnon/";
+    public static final String EP_FLICKER = "flicker/";
 
     public enum RequestType {
-        GET_STATE, SET_STATE, TURN_ON, TURN_OFF
+        GET_STATE, SET_STATE, TURN_ON, TURN_OFF, FLICKER, PULSE
     }
 }

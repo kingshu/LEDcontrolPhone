@@ -1,8 +1,12 @@
 package com.example.krishnabh.ledcontrolphone;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,13 +28,13 @@ public class MainActivity extends AppCompatActivity implements Switch.OnCheckedC
     public static Switch powerSwitch;
     public static ImageView colorRect;
 
-//    protected GoogleApiClient mGoogleApiClient;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         colorRect = (ImageView) findViewById(R.id.fadedbg);
+
+        CallListener cl = new CallListener();
 
         powerSwitch = (Switch) findViewById(R.id.switch1);
         powerSwitch.setOnCheckedChangeListener(this);
@@ -42,24 +46,16 @@ public class MainActivity extends AppCompatActivity implements Switch.OnCheckedC
             }
         });
 
-        new AsyncGetRequest(this, CONSTANTS.RequestType.GET_STATE).execute();
-
-     /*   if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }*/
+        new AsyncGetRequest(CONSTANTS.RequestType.GET_STATE).execute();
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         if (isChecked) {
-            new AsyncGetRequest(this, CONSTANTS.RequestType.TURN_ON).execute();
+            new AsyncGetRequest(CONSTANTS.RequestType.TURN_ON).execute();
         }
         else {
-            new AsyncGetRequest(this, CONSTANTS.RequestType.TURN_OFF).execute();
+            new AsyncGetRequest(CONSTANTS.RequestType.TURN_OFF).execute();
         }
     }
 
@@ -69,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements Switch.OnCheckedC
             public void onOk(AmbilWarnaDialog dialog, int newColor) {
                 color = newColor;
                 colorRect.setColorFilter(color);
-                new AsyncGetRequest(MainActivity.this, CONSTANTS.RequestType.SET_STATE, Color.red(color), Color.green(color), Color.blue(color)).execute();
+                new AsyncGetRequest(CONSTANTS.RequestType.SET_STATE, Color.red(color), Color.green(color), Color.blue(color)).execute();
             }
             @Override
             public void onCancel(AmbilWarnaDialog dialog) {

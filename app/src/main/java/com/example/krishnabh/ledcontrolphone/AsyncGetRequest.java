@@ -19,7 +19,7 @@ public class AsyncGetRequest extends AsyncTask<Object, Integer, JSONObject> {
     private final String url;
     MainActivity mainActivity;
 
-    public AsyncGetRequest(MainActivity mActivity, CONSTANTS.RequestType mRequestType) {
+    public AsyncGetRequest(CONSTANTS.RequestType mRequestType) {
         requestType = mRequestType;
         switch (mRequestType) {
             case GET_STATE:
@@ -31,11 +31,14 @@ public class AsyncGetRequest extends AsyncTask<Object, Integer, JSONObject> {
             case TURN_OFF:
                 url = CONSTANTS.PI_URL + CONSTANTS.EP_OFF;
                 break;
+            case FLICKER:
+                url = CONSTANTS.PI_URL + CONSTANTS.EP_FLICKER;
+                break;
             default:
                 url = "";
         }
     }
-    public AsyncGetRequest(MainActivity mActivity, CONSTANTS.RequestType mRequestType, int red, int green, int blue) {
+    public AsyncGetRequest(CONSTANTS.RequestType mRequestType, int red, int green, int blue) {
         requestType = mRequestType;
         url = CONSTANTS.PI_URL + CONSTANTS.EP_SET + red +"/"+ green +"/"+ blue;
     }
