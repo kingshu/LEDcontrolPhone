@@ -1,17 +1,20 @@
 package com.example.krishnabh.ledcontrolphone;
 
-import android.content.Context;
-import android.content.ContextWrapper;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.os.IBinder;
+import android.service.notification.StatusBarNotification;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements Switch.OnCheckedC
     public static Button changeColorBtn;
     public static Switch powerSwitch;
     public static ImageView colorRect;
+    public static Button settingsBtn;
+
+    private NotificationListener nl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,16 @@ public class MainActivity extends AppCompatActivity implements Switch.OnCheckedC
         colorRect = (ImageView) findViewById(R.id.fadedbg);
 
         CallListener cl = new CallListener();
+        nl = new NotificationListener() {
+            @Override
+            public void onListenerConnected() {
+                StatusBarNotification sbns[] = this.getActiveNotifications();
+                for (StatusBarNotification i: sbns) {
+                    System.out.println(i.getPackageName());
+                }
+            }
+        };
+
 
         powerSwitch = (Switch) findViewById(R.id.switch1);
         powerSwitch.setOnCheckedChangeListener(this);
@@ -47,6 +63,18 @@ public class MainActivity extends AppCompatActivity implements Switch.OnCheckedC
         });
 
         new AsyncGetRequest(CONSTANTS.RequestType.GET_STATE).execute();
+
+        settingsBtn = (Button) findViewById(R.id.settingsBtn);
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                openSettingsView();
+            }
+        });
+    }
+
+    public void openSettingsView() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     @Override

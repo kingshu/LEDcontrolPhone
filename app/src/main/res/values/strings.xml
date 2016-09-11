@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LED</string>
+    <string name="service_name">FBListener</string>
+    <string name="settings_file_name">Settings</string>
 </resources>

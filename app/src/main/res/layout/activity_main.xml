@@ -11,17 +11,27 @@
     android:background="#000000">
 
     <Switch
-        android:layout_width="140dp"
-        android:layout_height="60dp"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
         android:text="Power          "
         android:id="@+id/switch1"
         android:checked="false"
         android:textColor="#f4f4f4"
-        android:textSize="25dp"
-        android:layout_alignParentTop="true"
+        android:textSize="30dp"
+        android:typeface="sans"
+        android:layout_below="@+id/settingsBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:typeface="sans"/>
+        android:layout_marginTop="42dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/settingsBtn"
+        android:background="@drawable/settings"
+        android:onClick="openSettings"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -29,9 +39,8 @@
         android:layout_height="wrap_content"
         android:text="Change color"
         android:id="@+id/button"
-        android:layout_marginBottom="21dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/switch1" />
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="400dp"
